@@ -37,7 +37,7 @@ def _update_settings(source_folder, site_name):
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-        key = ''.join(random.SystemRandom.choice(chars) for _ in range(50))
+        key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
         append(secret_key_file, f'SECRET_KEY = {key}')
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
