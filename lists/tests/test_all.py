@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import resolve
-from .views import home_page
+from lists.views import home_page
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from lists.models import Item, List
