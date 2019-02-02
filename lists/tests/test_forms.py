@@ -27,6 +27,7 @@ class ItemFormTest(TestCase):
         self.assertEqual(new_item.text, 'do me')
         self.assertEqual(new_item.list, list_)
 
+
 class ExistingListItemFormTest(TestCase):
 
     def test_form_renders_item_text_input(self):
