@@ -36,7 +36,7 @@ class LoginTest(FunctionalTest):
         url = url_search.group(0)
         self.assertIn(self.live_server_url, url)
 
-        # 她点点击了链接
+        # 她点击了链接
         self.browser.get(url)
 
         # 她登录了！
