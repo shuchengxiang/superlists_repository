@@ -13,8 +13,7 @@ def reset_database(host):
 
 
 def create_session_on_server(host, email):
-    manage_dot_py = _get_manage_dot_py()
+    manage_dot_py = _get_manage_dot_py(host)
     with settings(host_string=f'scx@{host}'):
-        session_key = run(f'{manage_dot_py} create_session {email}')
+        session_key = run(f'{manage_dot_py} create_session email={email}')
         return session_key.strip()
-    

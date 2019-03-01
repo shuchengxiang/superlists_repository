@@ -17,8 +17,9 @@
 
 ## Systemd服务
 
-* 参考gunicorn-upstart.template.conf
+* 参见gunicorn-systemd.templete.service
 * 把SITENAME替换成所需的域名，例如staging.my-domain.com
+* 把SEKRIT替换成电子邮件密码
 
 ## 文件夹结构：
 假设有用户账户， 家目录为/home/username

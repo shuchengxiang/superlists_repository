@@ -66,13 +66,13 @@ class LoginTest(FunctionalTest):
         inbox = imaplib.IMAP4_SSL('mail.dongao.com')
         try:
             username = test_email
-            password = os.environ['DONGAO_PASSWORD']
+            password = os.environ.get('DONGAO_PASSWORD')
             inbox.login(username, password)
             while time.time() - start < 60:
                 # 获取最新的10封邮件
                 inbox.select()
                 typ, data = inbox.search(None, 'ALL')
-                for num in data[0].split()[-5:]:
+                for num in data[0].split()[-1:]:
                     typ, lines = inbox.fetch(num, '(RFC822)')
                     if f'Subject: {subject}' in lines[0][1].decode('utf-8'):
                         email_id = num
@@ -81,5 +81,7 @@ class LoginTest(FunctionalTest):
                 time.sleep(5)
         finally:
             if email_id:
-                inbox.delete(email_id)
+                inbox.store(email_id, '+FLAGS', '\\Deleted')
+                inbox.expunge()
+            inbox.close()
             inbox.logout()
