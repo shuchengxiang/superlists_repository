@@ -41,7 +41,7 @@ class MyListsTest(FunctionalTest):
         )
         self.browser.find_element_by_link_text('Reticulate splines').click()
         self.wait_for(
-            self.assertEqual(self.browser.current_url, first_list_url)
+            lambda: self.assertEqual(self.browser.current_url, first_list_url)
         )
 
         # 她决定再建一个清单试试
