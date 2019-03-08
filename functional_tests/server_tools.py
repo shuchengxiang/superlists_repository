@@ -1,5 +1,14 @@
-from fabric.api import run
+from fabric.api import run, env, hosts
 from fabric.context_managers import settings
+
+env.passwords = {
+    'scx@172.16.207.51:22': '123456',
+}
+
+
+@hosts('172.16.207.51')
+def host_os_type():
+    run('uname -a')
 
 
 def _get_manage_dot_py(host):
