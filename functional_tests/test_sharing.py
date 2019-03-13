@@ -53,7 +53,7 @@ class SharingTest(FunctionalTest):
         ))
 
         # 他在这个清单中添加一个待办事项
-        list_page.add_list_item('Hi 伊迪斯！')
+        list_page.add_list_item('Hi Edith!')
 
         # 伊迪斯刷新页面后，看到Oniciferous添加的内容
         self.browser = edith_browser

@@ -208,3 +208,49 @@ class NewListViewUnitTest(unittest.TestCase):
         new_list(self.request)
         self.assertFalse(mock_form.save.called)
 
+
+class ShareListTest(TestCase):
+
+    def test_post_redirects_to_lists_page(self):
+        list1 = List.objects.create()
+        response = self.client.post(
+            f'/lists/{list1.id}/share/',
+            data={
+                    'sharee': 'a@b.com',
+                  }
+        )
+        self.assertRedirects(response, f'/lists/{list1.id}/')
+
+    def test_list_shared_user_in_shared_with_lists(self):
+        user = User.objects.create(email='a@b.com')
+        list1 = List.objects.create()
+        response = self.client.post(
+            f'/lists/{list1.id}/share/',
+            data={
+                'sharee': 'a@b.com',
+            }
+        )
+        self.assertIn(user, list1.shared_with.all())
+
+    def test_enter_empty_user_post_to_share_views(self):
+        user = User.objects.create(email='a@b.com')
+        list1 = List.objects.create()
+        response = self.client.post(
+            f'/lists/{list1.id}/share/',
+            data={
+                'sharee': '',
+            }
+        )
+        self.assertRedirects(response, f'/lists/{list1.id}/')
+
+    def test_enter_no_user_signed_post_to_share_views(self):
+        list1 = List.objects.create()
+        new_email = 'nouser@b.com'
+        response = self.client.post(
+            f'/lists/{list1.id}/share/',
+            data={
+                'sharee': new_email,
+            }
+        )
+        new_user = User.objects.filter(email=new_email)[0]
+        self.assertIn(new_user, list1.shared_with.all())
